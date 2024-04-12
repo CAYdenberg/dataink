@@ -44,11 +44,25 @@ app.use(async (ctx, next) => {
   if (!["ts", "tsx", "js"].includes(ext)) {
     return next();
   }
+
+  if (file === "client") {
+    const src = await read("sandbox", "client.js");
+    ctx.response.headers.set("Content-Type", "text/javascript");
+    ctx.response.body = src;
+    return;
+  }
+
   if (!pathname.startsWith("/package") && !pathname.startsWith("/sandbox")) {
     return next();
   }
 
-  const src = await read(file === "main" ? "/sandbox/main.js" : pathname);
+  const src = await read(pathname);
+
+  if (ctx.request.headers.get("Accept") === "text/plain") {
+    ctx.response.headers.set("Content-Type", "text/plain");
+    ctx.response.body = src;
+    return;
+  }
 
   const exe = await esbuild.transform(src, {
     loader: ext === "js" ? "jsx" : (ext as "ts" | "tsx"),

@@ -2,15 +2,71 @@
 <html>
   <head>
     <title>pvalue sandbox and test system</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhEAAQAIAAAAAAAAAAACH5BAkAAAEALAAAAAAQABAAAAIgjI+py+0PEQiT1lkNpppnz4HfdoEH2W1nCJRfBMfyfBQAOw==" />
   </head>
 
   <body>
-    <h1>Hello world</h1>
-    <div id="root"></div>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            pvalue
+          </a>
+    
+          <a class="navbar-item">
+            Documentation
+          </a>
+    
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Examples
+            </a>
+    
+            <div class="navbar-dropdown">
+              <a class="navbar-item example-select">
+                Responsive Bar Chart
+              </a>
+              <a class="navbar-item example-select">
+                Pannable Line Chart
+              </a>
+              <a class="navbar-item example-select">
+                Dot and Tukey
+              </a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary" href="https://livingpixel.io">
+                <strong>Living Pixel</strong>
+              </a>
+              <a class="button is-light" href="https://gitlab.com/lpix/pvalue">
+                GitLab
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="columns is-gapless m-0">
+
+      <div class="column is-half">
+        <div class="is-scrollable">
+          <div id="input"></div>
+        </div>
+      </div>
+      
+      <div class="column">
+        <div id="output" class="output"></div>
+      </div>
+    </div>
     <script type="importmap">
       {
         "imports": {
+          "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
           "preact": "https://esm.sh/preact@10.20.1",
           "preact/": "https://esm.sh/preact@10.20.1/",
           "@pvalue/core": "./package/core/mod.ts",
@@ -18,7 +74,12 @@
         }
       }
     </script>
-    <script type="module" src="%=TEST=%"></script>
-    <script type="module" src="/sandbox/main.js"></script>
+    <!-- <script type="module" src="%=TEST=%"></script> -->
+    <script type="text/javascript">
+      window.__STATE__ = {
+        appUrl: "%=TEST=%"
+      }
+    </script>
+    <script type="module" src="/client.js"></script>
   </body>
 </html>

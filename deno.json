@@ -4,10 +4,11 @@
     "assert/": "https://deno.land/std@0.208.0/assert/",
     "preact": "https://esm.sh/preact@10.20.1",
     "preact/": "https://esm.sh/preact@10.20.1/",
+    "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
     "@pvalue/core": "./package/core/mod.ts"
   },
   "tasks": {
-    "dev": "deno run --watch -A main.ts"
+    "sandbox": "deno run --watch -A sandbox/server.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
