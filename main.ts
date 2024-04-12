@@ -29,8 +29,11 @@ app.use(async (ctx, next) => {
     return next();
   }
 
-  const html = await read("tests", "index.html");
-  const processedHtml = html.replaceAll("%=TEST=%", `/tests/suite/${file}.tsx`);
+  const html = await read("sandbox", "index.html");
+  const processedHtml = html.replaceAll(
+    "%=TEST=%",
+    `/sandbox/suite/${file}.tsx`
+  );
 
   ctx.response.headers.set("Content-Type", "text/html");
   ctx.response.body = processedHtml;
@@ -38,17 +41,17 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx, next) => {
   const { file, pathname, ext } = parseReq(ctx.request);
-  if (!["ts", "tsx", "mjs"].includes(ext)) {
+  if (!["ts", "tsx", "js"].includes(ext)) {
     return next();
   }
-  if (!pathname.startsWith("/package") && !pathname.startsWith("/tests")) {
+  if (!pathname.startsWith("/package") && !pathname.startsWith("/sandbox")) {
     return next();
   }
 
-  const src = await read(file === "main" ? "/tests/main.mjs" : pathname);
+  const src = await read(file === "main" ? "/sandbox/main.js" : pathname);
 
   const exe = await esbuild.transform(src, {
-    loader: ext as "ts" | "tsx",
+    loader: ext === "js" ? "jsx" : (ext as "ts" | "tsx"),
     jsx: "automatic",
     jsxImportSource: "preact",
   });
