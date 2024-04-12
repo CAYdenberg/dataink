@@ -1,0 +1,21 @@
+{
+  "imports": {
+    "path": "https://deno.land/std@0.208.0/path/mod.ts",
+    "assert/": "https://deno.land/std@0.208.0/assert/",
+    "preact": "https://esm.sh/preact@10.20.1",
+    "preact/": "https://esm.sh/preact@10.20.1/",
+    "@pvalue/core": "./package/core/mod.ts"
+  },
+  "tasks": {
+    "dev": "deno run --watch -A main.ts"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "lint": {
+    "rules": {
+      "include": ["no-unused-vars"]
+    }
+  }
+}
