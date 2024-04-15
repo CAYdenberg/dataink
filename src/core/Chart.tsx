@@ -1,4 +1,4 @@
-import { preact, hooks } from "../deps.ts";
+import { preact, hooks } from "~";
 const { useMemo, useRef } = hooks;
 const { Component } = preact;
 import type { FunctionComponent } from "preact";

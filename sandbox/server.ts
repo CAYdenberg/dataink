@@ -52,7 +52,7 @@ app.use(async (ctx, next) => {
     return;
   }
 
-  if (!pathname.startsWith("/package") && !pathname.startsWith("/sandbox")) {
+  if (!pathname.startsWith("/src") && !pathname.startsWith("/sandbox")) {
     return next();
   }
 

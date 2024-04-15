@@ -1,4 +1,4 @@
-import { Chart, Line } from "@pvalue/core";
+import { Chart, Line } from "../../src/core/mod.ts";
 
 export default () => (
   <Chart view={[0, 0, 10, 10]} gutter={[1, 1, 1, 1]}>

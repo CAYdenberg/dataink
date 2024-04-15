@@ -1,8 +1,9 @@
-import { d3Shape } from "../../deps.ts";
+import { d3Shape } from "~";
+import type { FunctionComponent } from "preact";
+
 import { Point } from "../lib/types.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
-import { FunctionComponent } from "preact";
 
 import { getD3Curve, getDashArray } from "../lib/d3ShapeFacade.ts";
 import type {

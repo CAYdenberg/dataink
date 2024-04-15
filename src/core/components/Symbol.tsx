@@ -1,7 +1,7 @@
-import { d3Shape } from "../../deps.ts";
-import { FunctionComponent } from "preact";
-import { getD3Symbol } from "../lib/d3ShapeFacade.ts";
+import { d3Shape } from "~";
+import type { FunctionComponent } from "preact";
 
+import { getD3Symbol } from "../lib/d3ShapeFacade.ts";
 import { radiansToDegrees } from "../lib/geometry.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";

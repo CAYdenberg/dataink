@@ -5,7 +5,7 @@
     "preact": "https://esm.sh/preact@10.20.1",
     "preact/": "https://esm.sh/preact@10.20.1/",
     "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
-    "@pvalue/core": "./package/core/mod.ts"
+    "~": "./src/build/deps.ts"
   },
   "tasks": {
     "sandbox": "deno run --watch -A sandbox/server.ts"

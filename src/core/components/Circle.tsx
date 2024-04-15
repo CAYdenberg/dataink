@@ -1,10 +1,7 @@
-import { d3Shape } from "../../deps.ts";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
-
-const { symbol: d3Symbol } = d3Shape;
 
 interface CircleProps {
   point: [number, number];

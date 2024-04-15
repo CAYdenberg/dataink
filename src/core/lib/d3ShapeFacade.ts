@@ -1,4 +1,4 @@
-import { d3Shape } from "../../deps.ts";
+import { d3Shape } from "~";
 
 export type CurveFactory = typeof curveLinear;
 export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
