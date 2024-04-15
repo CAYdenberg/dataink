@@ -1,17 +1,16 @@
-import { d3Shape } from "../../deps.ts";
+import type { FunctionComponent } from "preact";
+
+import { line as d3Line } from "d3-shape";
+
 import { Point } from "../lib/types.ts";
 import useChartState from "../lib/ChartState.tsx";
-import { useClip } from "./Clip.tsx";
-import { FunctionComponent } from "preact";
-
 import { getD3Curve, getDashArray } from "../lib/d3ShapeFacade.ts";
 import type {
   CurveFactory,
   CurveType,
   DashType,
 } from "../lib/d3ShapeFacade.ts";
-
-const { line: d3Line } = d3Shape;
+import { useClip } from "./Clip.tsx";
 
 interface Props {
   path: Point[];

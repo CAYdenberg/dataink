@@ -1,6 +1,7 @@
-import { RefObject } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import { debounce } from "../../deps.ts";
+import { hooks, debounce } from "~";
+const { useCallback, useState, useEffect } = hooks;
+import type { RefObject } from "preact";
+
 import { WINDOW_RESIZE_RENDER_RATE } from "./constants.ts";
 import Viewbox from "./Viewbox.ts";
 

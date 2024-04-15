@@ -1,15 +1,15 @@
 import { render, h } from "preact";
 import { EditorView, basicSetup } from "codemirror/codemirror/dist/index.js";
-import { drawSelection } from "codemirror/view/dist/index.js";
+import { ViewUpdate, drawSelection } from "codemirror/view/dist/index.js";
 import { oneDark } from "codemirror/theme-one-dark/dist/index.js";
 import { javascript } from "codemirror/lang-javascript/dist/index.js";
 
-const root = document.getElementById("output");
-const edRoot = document.getElementById("input");
-let editor;
-let timer;
+const root = document.getElementById("output") as HTMLDivElement;
+const edRoot = document.getElementById("input") as HTMLDivElement;
+let editor: EditorView;
+let timer: number;
 
-function initEditor(code) {
+function initEditor(code: string) {
   editor?.destroy();
 
   editor = new EditorView({
@@ -22,7 +22,7 @@ function initEditor(code) {
         typescript: true,
       }),
       oneDark,
-      EditorView.updateListener.of((update) => {
+      EditorView.updateListener.of((update: ViewUpdate) => {
         if (!update.docChanged) return;
 
         clearTimeout(timer);
@@ -47,6 +47,6 @@ fetch(window.__STATE__.appUrl, {
     initEditor(text);
     import("test").then((module) => {
       const App = module.default;
-      render(h(App), root);
+      render(h(App, {}), root);
     });
   });

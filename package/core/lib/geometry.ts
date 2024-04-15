@@ -1,4 +1,4 @@
-import { d3Scale } from "../../deps.ts";
+import { d3Scale } from "~";
 import Viewbox from "./Viewbox.ts";
 import type { Origin, Point, Gutter } from "./types.ts";
 

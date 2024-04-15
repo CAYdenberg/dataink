@@ -1,14 +1,15 @@
-import { createContext, Fragment, FunctionComponent } from "preact";
-import { useContext, useMemo } from "preact/hooks";
-import { d3Shape } from "../../deps.ts";
+import { preact, hooks } from "~";
+const { useMemo, useContext } = hooks;
+const { createContext, Fragment } = preact;
+import type { FunctionComponent } from "preact";
+
+import { line as d3Line } from "d3-shape";
 
 import useHtmlId from "../lib/useHtmlId.ts";
 import { CanvasComponent, Point } from "../lib/types.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { CurveFactory, CurveType, getD3Curve } from "../lib/d3ShapeFacade.ts";
 import { normalize } from "../lib/normalize.ts";
-
-const { line: d3Line } = d3Shape;
 
 export const ClipRendererContext = createContext<CanvasComponent | null>(null);
 

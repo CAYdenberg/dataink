@@ -1,4 +1,7 @@
-import { Fragment, FunctionComponent } from "preact";
+import { preact } from "~";
+const { Fragment } = preact;
+import type { FunctionComponent } from "preact";
+
 import useChartState from "../lib/ChartState.tsx";
 import useHandle from "../lib/useHandle.ts";
 import { EventHandlers } from "../lib/types.ts";

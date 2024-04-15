@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { hooks } from "~";
+const { useRef, useState, useCallback, useEffect } = hooks;
+
 import { CanvasComponent } from "./types.ts";
 import Viewbox from "./Viewbox.ts";
 

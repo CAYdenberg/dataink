@@ -1,5 +1,5 @@
 import * as path from "path";
-import { build } from "npm:vite";
+import * as esbuild from "https://deno.land/x/esbuild@v0.20.1/mod.js";
 
 // create folder
 
@@ -11,13 +11,21 @@ import { build } from "npm:vite";
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url));
 
-await build({
-  build: {
-    emptyOutDir: true,
-    outDir: "/dist/core",
-    lib: {
-      entry: path.resolve(__dirname, "package", "core", "mod.ts"),
-      name: "index",
+await esbuild.build({
+  entryPoints: [
+    {
+      in: path.join(__dirname, "package", "core", "mod.ts"),
+      out: path.join(__dirname, "dist", "preact", "core"),
     },
+  ],
+  loader: { ".tsx": "tsx", ".ts": "ts" },
+  jsx: "automatic",
+  jsxImportSource: "preact",
+  bundle: true,
+  // minify: true,
+  outdir: path.join("dist", "preact"),
+  external: ["preact", "preact/jsx-runtime"],
+  alias: {
+    "~": "./deps.ts",
   },
 });

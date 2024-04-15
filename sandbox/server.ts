@@ -46,9 +46,14 @@ app.use(async (ctx, next) => {
   }
 
   if (file === "client") {
-    const src = await read("sandbox", "client.js");
+    const src = await read("sandbox", "client.ts");
+    const exe = await esbuild.transform(src, {
+      loader: "ts",
+      jsx: "automatic",
+      jsxImportSource: "preact",
+    });
     ctx.response.headers.set("Content-Type", "text/javascript");
-    ctx.response.body = src;
+    ctx.response.body = exe.code;
     return;
   }
 

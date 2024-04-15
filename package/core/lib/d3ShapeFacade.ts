@@ -1,15 +1,10 @@
-import { d3Shape } from "../../deps.ts";
-
-export type CurveFactory = typeof curveLinear;
-export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
-
-const {
+import {
   curveBasisOpen,
   curveCardinalOpen,
   curveLinear,
   curveNatural,
   curveStepBefore,
-  symbol: d3Symbol,
+  symbol as d3Symbol,
   symbolCircle,
   symbolCross,
   symbolDiamond,
@@ -17,7 +12,10 @@ const {
   symbolStar,
   symbolTriangle,
   symbolWye,
-} = d3Shape;
+} from "d3-shape";
+
+export type CurveFactory = typeof curveLinear;
+export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
 
 export const getD3Curve = (input?: CurveType | CurveFactory): CurveFactory => {
   if (!input) {
