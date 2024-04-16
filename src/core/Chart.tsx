@@ -1,7 +1,6 @@
-import { preact, hooks } from "~";
-const { useMemo, useRef } = hooks;
+import { preact, useMemo, useRef } from "./deps.ts";
 const { Component } = preact;
-import type { FunctionComponent } from "preact";
+import type { FunctionComponent } from "./deps.ts";
 
 import ChartError from "./lib/ChartError.tsx";
 import { normalize } from "./lib/normalize.ts";

@@ -1,6 +1,7 @@
-import { Fragment, FunctionComponent } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
-import { JSX } from "preact/jsx-runtime";
+import { preact, useRef, useEffect, useState } from "../deps.ts";
+import type { FunctionComponent, JSX } from "../deps.ts";
+
+const { Fragment } = preact;
 
 import useChartState from "./ChartState.tsx";
 import { Point } from "./types.ts";

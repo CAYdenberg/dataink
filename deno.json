@@ -1,11 +1,11 @@
 {
   "imports": {
-    "path": "https://deno.land/std@0.208.0/path/mod.ts",
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.1",
     "assert/": "https://deno.land/std@0.208.0/assert/",
-    "preact": "https://esm.sh/preact@10.20.1",
-    "preact/": "https://esm.sh/preact@10.20.1/",
     "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
-    "~": "./src/build/deps.ts"
+    "path": "https://deno.land/std@0.208.0/path/mod.ts",
+    "preact": "https://esm.sh/preact@10.20.1",
+    "preact/": "https://esm.sh/preact@10.20.1/"
   },
   "tasks": {
     "sandbox": "deno run --watch -A sandbox/server.ts"

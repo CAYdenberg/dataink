@@ -10,7 +10,7 @@ type ObjectFromList<T extends ReadonlyArray<string>, V = string> = {
  * Basics
  */
 
-import { createRef } from "preact";
+import { preact } from "../deps.ts";
 import Viewbox from "./Viewbox.ts";
 
 export type Point = [number, number];
@@ -25,7 +25,7 @@ export type CanvasComponent = (
 ) => void;
 
 export interface ChartState {
-  containerRef: ReturnType<typeof createRef>;
+  containerRef: ReturnType<typeof preact.createRef>;
   isCanvas: boolean;
   pushToCanvasQueue: ((func: CanvasComponent) => void) | null;
 

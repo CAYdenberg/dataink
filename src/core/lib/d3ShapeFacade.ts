@@ -1,7 +1,4 @@
-import { d3Shape } from "~";
-
-export type CurveFactory = typeof curveLinear;
-export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
+import { d3Shape } from "../deps.ts";
 
 const {
   curveBasisOpen,
@@ -18,6 +15,9 @@ const {
   symbolTriangle,
   symbolWye,
 } = d3Shape;
+
+export type CurveFactory = typeof curveLinear;
+export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
 
 export const getD3Curve = (input?: CurveType | CurveFactory): CurveFactory => {
   if (!input) {

@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { useRef } from "../deps.ts";
 
 const randomHtmlId = () => {
   return `id-${Math.random().toString(16).slice(2)}`;
