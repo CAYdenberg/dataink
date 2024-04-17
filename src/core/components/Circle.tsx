@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "preact";
+import type { FunctionComponent } from "../deps.ts";
 
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";

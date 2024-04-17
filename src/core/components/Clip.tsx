@@ -1,7 +1,6 @@
 import { preact, useContext, useMemo, d3Shape } from "../deps.ts";
+import type { FunctionComponent } from "../deps.ts";
 const { Fragment, createContext } = preact;
-import type { FunctionComponent } from "preact";
-
 const { line: d3Line } = d3Shape;
 
 import useHtmlId from "../lib/useHtmlId.ts";

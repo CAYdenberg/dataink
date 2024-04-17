@@ -1,11 +1,12 @@
-import type { FunctionComponent } from "preact";
+import { d3Shape } from "../deps.ts";
+import type { FunctionComponent } from "../deps.ts";
 
 import { getD3Symbol } from "../lib/d3ShapeFacade.ts";
 import { radiansToDegrees } from "../lib/geometry.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
 
-import { symbol as d3Symbol } from "d3-shape";
+const { symbol: d3Symbol } = d3Shape;
 
 export type D3SymbolType = typeof d3Symbol;
 export type SymbolType =

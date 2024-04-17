@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "preact";
+import type { FunctionComponent } from "../deps.ts";
 import type { Props } from "../Chart.tsx";
 
 const ChartError: FunctionComponent<Props> = (props) => {

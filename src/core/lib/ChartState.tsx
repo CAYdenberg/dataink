@@ -1,10 +1,10 @@
 import { preact, useContext } from "../deps.ts";
-import Viewbox from "./Viewbox.ts";
-import { ChartState } from "./types.ts";
-import type { FunctionComponent } from "preact";
-import type { JSX } from "preact/jsx-runtime";
+import type { FunctionComponent, JSX } from "../deps.ts";
 
 const { createRef, createContext } = preact;
+
+import Viewbox from "./Viewbox.ts";
+import { ChartState } from "./types.ts";
 
 export const getDefaultState = (): ChartState => ({
   containerRef: createRef<HTMLDivElement>(),

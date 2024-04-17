@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "preact";
+import type { FunctionComponent } from "../deps.ts";
 
 import { DEFAULT_FONT_FAMILY } from "../lib/constants.ts";
 import { angleBetweenPoints, radiansToDegrees } from "../lib/geometry.ts";

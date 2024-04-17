@@ -1,6 +1,7 @@
-import type { FunctionComponent } from "preact";
+import { d3Shape } from "../deps.ts";
+import type { FunctionComponent } from "../deps.ts";
 
-import { line as d3Line } from "d3-shape";
+const { line: d3Line } = d3Shape;
 
 import { Point } from "../lib/types.ts";
 import useChartState from "../lib/ChartState.tsx";

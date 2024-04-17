@@ -17,6 +17,9 @@ await build({
   entryPoints: [path.join(__dirname, "src", "core", "mod.ts")],
   test: false,
   outDir: path.join("dist", "react"),
+  scriptModule: false,
+  typeCheck: false,
+
   package: {
     name: "pvalue-react",
     version: "0.0.2",
