@@ -1,0 +1,21 @@
+{
+  "name": "@pvalue/core",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build:types": "tsc"
+  },
+  "devDependencies": {
+    "@types/d3-scale": "^4.0.8",
+    "@types/d3-shape": "^3.1.6",
+    "@types/lodash.debounce": "^4.0.9",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.9"
+  },
+  "dependencies": {
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^3.2.0",
+    "lodash.debounce": "^4.0.8",
+    "preact": "^10.20.2"
+  }
+}

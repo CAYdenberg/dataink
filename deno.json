@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@deno/dnt": "jsr:@deno/dnt@^0.41.1",
     "assert/": "https://deno.land/std@0.208.0/assert/",
     "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
     "path": "https://deno.land/std@0.208.0/path/mod.ts",

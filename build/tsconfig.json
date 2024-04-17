@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "target": "ES2019",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "types",
+    "removeComments": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["dom", "ESNext"],
+    "typeRoots": ["./node_modules/@types"],
+    "emitDeclarationOnly": true,
+    "declaration": true
+  },
+  "exclude": ["**/*.test.ts"],
+  "include": ["src"]
+}

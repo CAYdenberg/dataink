@@ -6,7 +6,6 @@ const {
   curveLinear,
   curveNatural,
   curveStepBefore,
-  symbol: d3Symbol,
   symbolCircle,
   symbolCross,
   symbolDiamond,
@@ -62,7 +61,8 @@ export const getDashArray = (input: DashType): Array<number> | null => {
   }
 };
 
-export type D3SymbolType = typeof d3Symbol;
+// @ts-ignore: typings are bad, just go with it
+export type D3SymbolType = d3Shape.SymbolType;
 export type SymbolType =
   | "circle"
   | "cross"
@@ -73,9 +73,11 @@ export type SymbolType =
   | "wye"
   | "none";
 
-export const getD3Symbol = (input?: SymbolType | D3SymbolType) => {
+export const getD3Symbol = (
+  input?: SymbolType | D3SymbolType
+): D3SymbolType | null => {
   if (typeof input !== "string") {
-    return input;
+    return input as D3SymbolType;
   }
 
   switch (input) {

@@ -6,18 +6,9 @@ import { radiansToDegrees } from "../lib/geometry.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
 
-const { symbol: d3Symbol } = d3Shape;
+import type { D3SymbolType, SymbolType } from "../lib/d3ShapeFacade.ts";
 
-export type D3SymbolType = typeof d3Symbol;
-export type SymbolType =
-  | "circle"
-  | "cross"
-  | "diamond"
-  | "square"
-  | "star"
-  | "triangle"
-  | "wye"
-  | "none";
+const { symbol: d3Symbol } = d3Shape;
 
 interface SymbolProps {
   point: [number, number];
