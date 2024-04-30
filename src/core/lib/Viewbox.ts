@@ -1,7 +1,15 @@
 import { Point } from "./types.ts";
 
 export type Range = [number, number];
+
 export type ViewboxDuck = Viewbox | [number, number, number, number];
+
+/**
+ * A factory function that creates a new viewbox. These will all work:
+ * createViewbox(xMin, yMin, width, height)
+ * createViewbox([xMin, yMin, width, height])
+ * createViewbox(new Viewbox(xMin, yMin, width, height))
+ */
 export type ViewboxFactory = (
   input: ViewboxDuck | number,
   yMin?: number,
@@ -20,15 +28,50 @@ interface ConstrainOptions {
   maxZoomX?: number;
   maxZoomY?: number;
 }
+
+/**
+ * Tracks the viewing area of a Chart. Properties reflect the bounds of a
+ * viewing area, eg xMin or height. Methods perform translations on that viewing
+ * area (e.g. zoom). Transforming methods return a new viewbox, they do not mutate
+ * the existing one.
+ */
 export default class Viewbox {
+  /**
+   * Minimum x value (eg, the left bound)
+   */
   public readonly xMin: number;
+  /**
+   * Minimum y value. Usually, the bottom in data space and the top in pixel space.
+   */
   public readonly yMin: number;
+  /**
+   * The width of the viewbox (difference between xMin and xMax)
+   */
   public readonly width: number;
+  /**
+   * The height of the viewbox (difference between yMin and yMax)
+   */
   public readonly height: number;
+  /**
+   * Maximum y value. Usually, the top in data space and the bottom in pixel space.
+   */
   public readonly xMax: number;
+  /**
+   * Maximum x value (eg, the right bound)
+   */
   public readonly yMax: number;
+  /**
+   * An array consisting of [xMin, xMax]
+   */
   public readonly x: Range;
+  /**
+   * An array consisting of [yMin, yMax]
+   */
   public readonly y: Range;
+  /**
+   * A string representation of the viewbox bounds.
+   * Useful for comparing two viewboxes to see if they are equivalent.
+   */
   public readonly hash: string;
 
   constructor(xMin: number, yMin: number, width: number, height: number) {
@@ -43,6 +86,11 @@ export default class Viewbox {
     this.hash = `${xMin},${yMin},${width},${height}`;
   }
 
+  /**
+   * Returns a new viewbox, equivalent to the current viewbox but with any specified
+   * edges set to the new value instead. That is, `currentView.setEdges({ yMin: 0 })` would
+   * return the current viewbox but with the bottom "locked" at 0
+   */
   setEdges(input: Edges): Viewbox {
     const { xMin, xMax, yMin, yMax } = {
       ...this,
@@ -51,6 +99,10 @@ export default class Viewbox {
     return new Viewbox(xMin, yMin, xMax - xMin, yMax - yMin);
   }
 
+  /**
+   * Move the viewbox `distance` in the x-direction. Usually, positive values
+   * move to the right (and negative to the left).
+   */
   panX(distance: number): Viewbox {
     return new Viewbox(
       this.xMin + distance,
@@ -60,6 +112,11 @@ export default class Viewbox {
     );
   }
 
+  /**
+   * Move the viewbox `distance` in the y-direction. For viewboxes defined in
+   * data space, positive numbers would move the viewbox up (while negative
+   * numbers would move it down).
+   */
   panY(distance: number): Viewbox {
     return new Viewbox(
       this.xMin,
@@ -69,6 +126,14 @@ export default class Viewbox {
     );
   }
 
+  /**
+   * Zoom the viewbox in by `factor`. `currentZoom.zoom(2)` would be equivalent
+   * to a 200% zoom in a drawing program. The optional `anchor` can act as the
+   * anchor point of the zoom operation; otherwise, zoom is centered within the
+   * viewbox.
+   * Usually, this method call is followed by calling `constrainZoom` and/or `setEdges`
+   * to keep the zoom operations within some reasonable bounds.
+   */
   zoom(factor: number, anchor?: Point): Viewbox {
     // default anchor is the center of the box:
     anchor =
@@ -89,6 +154,12 @@ export default class Viewbox {
     return new Viewbox(this.xMin + dXMin, this.yMin + dYMin, width, height);
   }
 
+  /**
+   * Interpolate between the current viewbox and `final`, based on `progress`, which is
+   * a number between 0 and 1. A progress of 0 would be equivalent to the current view,
+   * a progress of 1 would be equivalent to the `final` view. Used to animate between
+   * two viewbox states.
+   */
   interpolate(final: Viewbox, progress: number): Viewbox {
     return new Viewbox(
       this.xMin + progress * (final.xMin - this.xMin),
@@ -98,6 +169,11 @@ export default class Viewbox {
     );
   }
 
+  /**
+   * Returns a new viewbox contained by an "outer" viewbox. Any boundary
+   * to the current viewbox which is outside the bounding box is set
+   * to the bounds of the viewbox.
+   */
   bound(
     input: ViewboxDuck | number,
     yMin?: number,
@@ -122,6 +198,10 @@ export default class Viewbox {
     );
   }
 
+  /**
+   * Prevent zooming in too far. If the width of the current viewbox is less
+   * than maxZoomX, then set the width to maxZoomX.
+   */
   constrainZoom({ maxZoomX, maxZoomY }: ConstrainOptions): Viewbox {
     const _x =
       maxZoomX && this.width < maxZoomX
@@ -141,6 +221,9 @@ export default class Viewbox {
     return _y;
   }
 
+  /**
+   * Convert the current viewbox to a path (array of points)
+   */
   toPath(): Point[] {
     const { xMin, xMax, yMin, yMax } = this;
     return [
@@ -151,23 +234,41 @@ export default class Viewbox {
     ];
   }
 
+  /**
+   * Returns a boolean indicating whether the current viewbox is equal in
+   * all dimensions to the test viewbox. Useful for checking whether
+   * the chart needs to be re-rendered.
+   */
   isEqual(test: ViewboxDuck): boolean {
     const _test = createViewbox(test);
     return _test.hash === this.hash;
   }
 
+  /**
+   * Filters an array of points to include only those that are within the x bounds
+   * of the viewbox.
+   */
   pointsWithinX(points: Point[]): Point[] {
     return points.filter(
       (point) => point[0] >= this.xMin && point[0] <= this.xMax
     );
   }
 
+  /**
+   * Filters an array of points to include only those that are within the y bounds
+   * of the viewbox.
+   */
   pointsWithinY(points: Point[]): Point[] {
     return points.filter(
       (point) => point[1] >= this.yMin && point[1] <= this.yMax
     );
   }
 
+  /**
+   * Tests whether a given point is within the current viewbox. The optional
+   * `matting` argument extends the viewbox outwards. This is useful to test
+   * whether a data point needs to be rendered.
+   */
   isPointWithin(point: Point, matting = 0): boolean {
     if (this.xMin - matting > point[0]) {
       return false;
@@ -193,6 +294,12 @@ export default class Viewbox {
   }
 }
 
+/**
+ * Create a new viewbox. These will all work:
+ * createViewbox(xMin, yMin, width, height)
+ * createViewbox([xMin, yMin, width, height])
+ * createViewbox(new Viewbox(xMin, yMin, width, height))
+ */
 export const createViewbox: ViewboxFactory = (
   input,
   yMin?,
@@ -214,17 +321,22 @@ export const createViewbox: ViewboxFactory = (
   );
 };
 
+/**
+ * Creates the smallest viewbox that will fit around a set of points. Returns
+ * null if a viewbox cannot be constructed from those points (eg, is an empty array).
+ * The resulting viewbox can be zoomed out slightly to create padding around the data.
+ * eg createViewboxFromData(data).zoom(0.9)
+ */
 export const createViewboxFromData = (data: Point[]): Viewbox | null => {
-  const flat = data;
-  if (!flat.length) {
-    return new Viewbox(0, 0, 0, 0);
+  if (!data.length) {
+    return null;
   }
 
-  let xMin = flat[0][0];
-  let xMax = flat[0][0];
-  let yMin = flat[0][1];
-  let yMax = flat[0][1];
-  flat.forEach((point) => {
+  let xMin = data[0][0];
+  let xMax = data[0][0];
+  let yMin = data[0][1];
+  let yMax = data[0][1];
+  data.forEach((point) => {
     const [x, y] = point;
     if (x < xMin) {
       xMin = x;

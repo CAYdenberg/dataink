@@ -1,10 +1,10 @@
-import { d3Shape } from "~";
-import type { FunctionComponent } from "preact";
+import type { FunctionComponent } from "../../jsx.ts";
+
+import { line as d3Line } from "d3-shape";
 
 import { Point } from "../lib/types.ts";
 import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
-
 import { getD3Curve, getDashArray } from "../lib/d3ShapeFacade.ts";
 import type {
   CurveFactory,
@@ -12,27 +12,35 @@ import type {
   DashType,
 } from "../lib/d3ShapeFacade.ts";
 
-const { line: d3Line } = d3Shape;
-
 interface Props {
+  /**
+   * Path of the line.
+   */
   path: Point[];
   /**
-   * Default: #000;
+   * Stroke color. When null, the stroke is not rendered. Default: #000;
    */
   stroke?: string | null;
   /**
-   * Default: null.
+   * Fill color. When null, the path is not filled. Default: null.
    */
   fill?: string | null;
   /**
+   * Stroke width (in pixels). When 0, null or undefined, the stroke is not rendered.
    * Default: 1.
    */
   strokeWidth?: number;
   /**
+   * Curve connecting the points in the path. Accepts keywords "linear", "cardinal",
+   * "natural", "basis" or "step". Also accepts a D3 curve factory function,
+   * see https://d3js.org/d3-shape/curve for more.
    * Default: "linear"
    */
   curveType?: CurveType | CurveFactory;
   /**
+   * Render the line stroke as a dash. Accepts "solid", "dashed" or "dotted", or
+   * an array of numbers representing a dash array. See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray
+   * for more information.
    * Default: "solid"
    */
   dash?: DashType;
@@ -49,6 +57,9 @@ interface Props {
   svgPointerEvents?: boolean;
 }
 
+/**
+ * Renders a line, with the `path` provided in data space.
+ */
 export const Line: FunctionComponent<Props> = (props) => {
   const { path } = props;
   const { scale } = useChartState();
@@ -58,7 +69,17 @@ export const Line: FunctionComponent<Props> = (props) => {
   return <PxLine {...props} path={pxData} />;
 };
 
-export const TranslatedLine: FunctionComponent<Props & { position: Point }> = (
+interface TranslatedLineProps extends Props {
+  position: Point;
+}
+
+/**
+ * Renders a anchored at `position` in data space, with the `path` provided as
+ * pixels relative to the anchor point. Useful for things like axis tick marks,
+ * that occur at defined positions but are usually a specific size defined in
+ * pixels.
+ */
+export const TranslatedLine: FunctionComponent<TranslatedLineProps> = (
   props
 ) => {
   const { path, position } = props;
@@ -72,6 +93,9 @@ export const TranslatedLine: FunctionComponent<Props & { position: Point }> = (
   return <PxLine {...props} path={pxData} />;
 };
 
+/**
+ * A line with the `path` provided in pixel space.
+ */
 export const PxLine: FunctionComponent<Props> = (props) => {
   const {
     path,

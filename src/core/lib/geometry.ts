@@ -1,8 +1,7 @@
-import { d3Scale } from "~";
+import { scaleLinear } from "d3-scale";
+
 import Viewbox from "./Viewbox.ts";
 import type { Origin, Point, Gutter } from "./types.ts";
-
-const { scaleLinear } = d3Scale;
 
 export const closeLineToEdge = (
   line: Point[],

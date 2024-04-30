@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "preact/hooks";
+import { useCallback, useMemo, useRef } from "../../jsx.ts";
 import useChartState from "./ChartState.tsx";
 import {
   ChartEvent,

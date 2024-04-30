@@ -1,11 +1,13 @@
 {
   "imports": {
-    "path": "https://deno.land/std@0.208.0/path/mod.ts",
     "assert/": "https://deno.land/std@0.208.0/assert/",
+    "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
+    "path": "https://deno.land/std@0.208.0/path/mod.ts",
     "preact": "https://esm.sh/preact@10.20.1",
     "preact/": "https://esm.sh/preact@10.20.1/",
-    "codemirror/": "https://deno.land/x/codemirror_esm@v6.0.1/esm/",
-    "~": "./src/build/deps.ts"
+    "d3-scale": "https://cdn.skypack.dev/d3-scale@4",
+    "d3-shape": "https://cdn.skypack.dev/d3-shape@3",
+    "lodash.debounce": "https://esm.sh/lodash@4.17.21/debounce"
   },
   "tasks": {
     "sandbox": "deno run --watch -A sandbox/server.ts"
@@ -18,5 +20,11 @@
     "rules": {
       "include": ["no-unused-vars"]
     }
+  },
+  "exports": {
+    "core": "./src/core/mod.ts"
+  },
+  "publish": {
+    "include": ["LICENSE", "README.md", "src/**/*.ts"]
   }
 }

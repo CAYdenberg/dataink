@@ -1,7 +1,9 @@
-import { createContext, createRef, FunctionComponent, JSX } from "preact";
-import { useContext } from "preact/hooks";
-import Viewbox from "./Viewbox.ts";
+import { preact, useContext } from "../../jsx.ts";
+import type { FunctionComponent, JSX } from "../../jsx.ts";
 
+const { createRef, createContext } = preact;
+
+import Viewbox from "./Viewbox.ts";
 import { ChartState } from "./types.ts";
 
 export const getDefaultState = (): ChartState => ({
@@ -14,17 +16,22 @@ export const getDefaultState = (): ChartState => ({
   pushToCanvasQueue: () => undefined,
 });
 
-export const ChartStateContext = createContext<ChartState>(
-  getDefaultState(),
-);
+export const ChartStateContext = createContext<ChartState>(getDefaultState());
 
+/**
+ * Retrieves the current ChartState from the context provided by the chart.
+ */
 const useChartState = () => {
   return useContext(ChartStateContext);
 };
 
-export const ChartStateConsumer: FunctionComponent<
-  { children: (chartState: ChartState) => JSX.Element }
-> = ({ children }) => {
+/**
+ * Retrieves the current ChartState using the function-as-child-component
+ * (FACC) pattern.
+ */
+export const ChartStateConsumer: FunctionComponent<{
+  children: (chartState: ChartState) => JSX.Element;
+}> = ({ children }) => {
   const chartState = useChartState();
   return children(chartState);
 };

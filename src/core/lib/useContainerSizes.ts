@@ -1,7 +1,7 @@
-import { debounce, hooks } from "~";
-const { useCallback, useEffect, useState } = hooks;
-import type { RefObject } from "preact";
+import { useCallback, useEffect, useState } from "../../jsx.ts";
+import type { RefObject } from "../../jsx.ts";
 
+import debounce from "lodash.debounce";
 import { WINDOW_RESIZE_RENDER_RATE } from "./constants.ts";
 import Viewbox from "./Viewbox.ts";
 

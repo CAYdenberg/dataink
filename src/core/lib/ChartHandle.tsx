@@ -1,4 +1,4 @@
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "../../jsx.ts";
 import type {
   ChartWheelEvent,
   EventHandlers,

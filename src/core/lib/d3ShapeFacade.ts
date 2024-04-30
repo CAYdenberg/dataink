@@ -1,15 +1,9 @@
-import { d3Shape } from "~";
-
-export type CurveFactory = typeof curveLinear;
-export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
-
-const {
+import {
   curveBasisOpen,
   curveCardinalOpen,
   curveLinear,
   curveNatural,
   curveStepBefore,
-  symbol: d3Symbol,
   symbolCircle,
   symbolCross,
   symbolDiamond,
@@ -17,7 +11,10 @@ const {
   symbolStar,
   symbolTriangle,
   symbolWye,
-} = d3Shape;
+} from "d3-shape";
+
+export type CurveFactory = typeof curveLinear;
+export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
 
 export const getD3Curve = (input?: CurveType | CurveFactory): CurveFactory => {
   if (!input) {
@@ -45,7 +42,7 @@ export const getD3Curve = (input?: CurveType | CurveFactory): CurveFactory => {
 
 export const DASHED_LINE = [5, 5];
 export const DOTTED_LINE = [1, 1];
-export type DashType = "solid" | "dashed" | "dotted" | Array<number> | null;
+export type DashType = "solid" | "dashed" | "dotted" | number[] | null;
 
 export const getDashArray = (input: DashType): Array<number> | null => {
   if (typeof input !== "string") return input;
@@ -62,7 +59,8 @@ export const getDashArray = (input: DashType): Array<number> | null => {
   }
 };
 
-export type D3SymbolType = typeof d3Symbol;
+// @ts-ignore: typings are bad, just go with it
+export type D3SymbolType = d3Shape.SymbolType;
 export type SymbolType =
   | "circle"
   | "cross"
@@ -73,9 +71,11 @@ export type SymbolType =
   | "wye"
   | "none";
 
-export const getD3Symbol = (input?: SymbolType | D3SymbolType) => {
+export const getD3Symbol = (
+  input?: SymbolType | D3SymbolType
+): D3SymbolType | null => {
   if (typeof input !== "string") {
-    return input;
+    return input as D3SymbolType;
   }
 
   switch (input) {
