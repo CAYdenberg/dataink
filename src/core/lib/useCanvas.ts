@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "../deps.ts";
+import { useCallback, useEffect, useRef, useState } from "../../jsx.ts";
 import { CanvasComponent } from "./types.ts";
 import Viewbox from "./Viewbox.ts";
 

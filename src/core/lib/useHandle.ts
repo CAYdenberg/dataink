@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "../deps.ts";
+import { useCallback, useMemo, useRef } from "../../jsx.ts";
 import useChartState from "./ChartState.tsx";
 import {
   ChartEvent,

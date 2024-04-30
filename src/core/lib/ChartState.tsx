@@ -1,5 +1,5 @@
-import { preact, useContext } from "../deps.ts";
-import type { FunctionComponent, JSX } from "../deps.ts";
+import { preact, useContext } from "../../jsx.ts";
+import type { FunctionComponent, JSX } from "../../jsx.ts";
 
 const { createRef, createContext } = preact;
 
@@ -18,10 +18,17 @@ export const getDefaultState = (): ChartState => ({
 
 export const ChartStateContext = createContext<ChartState>(getDefaultState());
 
+/**
+ * Retrieves the current ChartState from the context provided by the chart.
+ */
 const useChartState = () => {
   return useContext(ChartStateContext);
 };
 
+/**
+ * Retrieves the current ChartState using the function-as-child-component
+ * (FACC) pattern.
+ */
 export const ChartStateConsumer: FunctionComponent<{
   children: (chartState: ChartState) => JSX.Element;
 }> = ({ children }) => {

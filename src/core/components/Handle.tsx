@@ -1,11 +1,16 @@
-import { preact } from "../deps.ts";
-import type { FunctionComponent } from "../deps.ts";
+import { preact } from "../../jsx.ts";
+import type { FunctionComponent } from "../../jsx.ts";
+
 import useChartState from "../lib/ChartState.tsx";
 import useHandle from "../lib/useHandle.ts";
 import { EventHandlers } from "../lib/types.ts";
 
 const { Fragment } = preact;
 
+/**
+ * Renders an SVG `g` element around all children, and attaches the provided
+ * EventHandlers. This component has no effect when `isCanvas` is not false.
+ */
 const Handle: FunctionComponent<EventHandlers> = (props) => {
   const { isCanvas } = useChartState();
   if (isCanvas) {

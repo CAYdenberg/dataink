@@ -6,7 +6,6 @@ export { default as Handle } from "./components/Handle.tsx";
 
 export * from "./lib/types.ts";
 export * from "./components/Line.tsx";
-export * from "./components/Circle.tsx";
 export {
   default as useChartState,
   ChartStateConsumer,

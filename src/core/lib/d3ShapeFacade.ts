@@ -1,6 +1,4 @@
-import { d3Shape } from "../deps.ts";
-
-const {
+import {
   curveBasisOpen,
   curveCardinalOpen,
   curveLinear,
@@ -13,7 +11,7 @@ const {
   symbolStar,
   symbolTriangle,
   symbolWye,
-} = d3Shape;
+} from "d3-shape";
 
 export type CurveFactory = typeof curveLinear;
 export type CurveType = "linear" | "cardinal" | "natural" | "basis" | "step";
@@ -44,7 +42,7 @@ export const getD3Curve = (input?: CurveType | CurveFactory): CurveFactory => {
 
 export const DASHED_LINE = [5, 5];
 export const DOTTED_LINE = [1, 1];
-export type DashType = "solid" | "dashed" | "dotted" | Array<number> | null;
+export type DashType = "solid" | "dashed" | "dotted" | number[] | null;
 
 export const getDashArray = (input: DashType): Array<number> | null => {
   if (typeof input !== "string") return input;

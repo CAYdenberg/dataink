@@ -1,7 +1,8 @@
-import { preact, useContext, useMemo, d3Shape } from "../deps.ts";
-import type { FunctionComponent } from "../deps.ts";
-const { Fragment, createContext } = preact;
-const { line: d3Line } = d3Shape;
+import { preact, useContext, useMemo, Fragment } from "../../jsx.ts";
+import type { FunctionComponent } from "../../jsx.ts";
+const { createContext } = preact;
+
+import { line as d3Line } from "d3-shape";
 
 import useHtmlId from "../lib/useHtmlId.ts";
 import { CanvasComponent, Point } from "../lib/types.ts";
@@ -17,10 +18,21 @@ export const useClip = (): CanvasComponent => {
 };
 
 interface Props {
+  /**
+   * The clip path (defined in data space). If null or undefined, the clipping
+   * mask is ignored.
+   */
   path?: Point[] | null;
+  /**
+   * Type of connecting the points of the path. Default: "linear"
+   */
   curveType?: CurveType | CurveFactory;
 }
 
+/**
+ * Renders a clipping mask. Children of this element which are NOT inside
+ * the `path` are not visible.
+ */
 const Clip: FunctionComponent<Props> = (props) => {
   const path = props.path;
   const children = props.children;

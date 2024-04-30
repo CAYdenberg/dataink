@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "../deps.ts";
+import type { FunctionComponent } from "../../jsx.ts";
 
 import { DEFAULT_FONT_FAMILY } from "../lib/constants.ts";
 import { angleBetweenPoints, radiansToDegrees } from "../lib/geometry.ts";
@@ -8,15 +8,27 @@ import useChartState from "../lib/ChartState.tsx";
 import { useClip } from "./Clip.tsx";
 
 export interface Props {
+  /**
+   * The location (in data space) where the text is anchored.
+   */
   position: Point;
+  /**
+   * The text to be rendered.
+   */
   text: string;
+  /**
+   * Offset the text by the provided number of pixels along the x- and y-axis,
+   * respectively.
+   */
   pxOffset?: [number, number];
   /**
    * Default: #000
    */
   color?: string;
   /**
-   * Default: "Helvetica"
+   * Font. If a non-standard font is used, it must be loaded and registered in CSS.
+   * The default font stack is as follows:
+   * "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Roboto Light', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
    */
   font?: string;
   /**
@@ -32,10 +44,12 @@ export interface Props {
    */
   align?: "left" | "center" | "right";
   /**
-   * Rotation of the text, in radians. 0 is horizontal ltr text. Alternatively,
-   * a Point can be provided, in which case the rotation angle is equivalent to
+   * Rotation of the text, IN RADIANS. That is, 0 is horizontal ltr text, as in labeling an x-axis.
+   * A rotation of Math.PI * 3 / 2 would be bottom-to-top, as in labeling a y-axis.
+   * Alternatively, a Point can be provided, in which case the rotation angle is equivalent to
    * the rotation of a line drawn between the `position` Point and the
    * `rotation` Point.
+   * Default: 0;
    */
   rotation?: number | Point;
   /**
@@ -46,6 +60,10 @@ export interface Props {
   svgPointerEvents?: boolean;
 }
 
+/**
+ * Renders the text given by `text` at the location `position`, given in data space.
+ * The text is anchored (by default) at the bottom left.
+ */
 const Text: FunctionComponent<Props> = (props) => {
   const { scale, pushToCanvasQueue, isCanvas } = useChartState();
   const clip = useClip();

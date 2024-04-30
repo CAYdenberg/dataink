@@ -10,7 +10,7 @@ type ObjectFromList<T extends ReadonlyArray<string>, V = string> = {
  * Basics
  */
 
-import { preact } from "../deps.ts";
+import { preact } from "../../jsx.ts";
 import Viewbox from "./Viewbox.ts";
 
 export type Point = [number, number];

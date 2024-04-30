@@ -1,6 +1,6 @@
-import { preact, useMemo, useRef } from "./deps.ts";
+import { preact, useMemo, useRef } from "../jsx.ts";
 const { Component } = preact;
-import type { FunctionComponent } from "./deps.ts";
+import type { FunctionComponent } from "../jsx.ts";
 
 import ChartError from "./lib/ChartError.tsx";
 import { normalize } from "./lib/normalize.ts";
@@ -152,7 +152,7 @@ interface State {
 }
 
 /**
- * The base component for Hypocube charts.
+ * The base component for DataInk charts.
  */
 class Chart extends Component<Props, State> {
   constructor(props: Props) {

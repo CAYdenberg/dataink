@@ -1,4 +1,4 @@
-import { useRef } from "../deps.ts";
+import { useRef } from "../../jsx.ts";
 
 const randomHtmlId = () => {
   return `id-${Math.random().toString(16).slice(2)}`;

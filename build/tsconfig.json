@@ -16,8 +16,9 @@
     "lib": ["dom", "ESNext"],
     "typeRoots": ["./node_modules/@types"],
     "emitDeclarationOnly": true,
-    "declaration": true
+    "declaration": true,
   },
   "exclude": ["**/*.test.ts"],
   "include": ["src"]
 }
+
